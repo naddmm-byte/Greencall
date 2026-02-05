@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Green Call List</title>
+    <meta name="theme-color" content="#0e1116" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="header">
+        <div>
+          <p class="eyebrow">Shift Confirmation</p>
+          <h1>Green Call List</h1>
+          <p class="subhead">
+            Upload a CSV schedule, review the guard details, and confirm each shift
+            in a clean, editable table.
+          </p>
+        </div>
+        <div class="header-card">
+          <p class="label">Supported positions</p>
+          <p class="value">Retail · Loss Prevention · Construction</p>
+          <p class="hint">You can edit any field after parsing.</p>
+        </div>
+      </header>
+
+      <section class="row">
+        <div class="card filter-card">
+          <div class="filter-header">
+            <h2>Filters</h2>
+            <button id="clearFilter" class="btn ghost small">Show All</button>
+          </div>
+          <div class="filter-row">
+            <label class="filter-label">Site group</label>
+            <div class="multi-select" id="siteFilter">
+              <button type="button" class="multi-toggle" id="siteFilterToggle" aria-expanded="false">
+                Site groups: All
+              </button>
+              <div class="multi-panel" id="siteFilterPanel" role="listbox" aria-multiselectable="true">
+                <p class="muted">No sites yet.</p>
+              </div>
+            </div>
+            <label class="filter-label">Shift position</label>
+            <div class="multi-select" id="positionFilter">
+              <button
+                type="button"
+                class="multi-toggle"
+                id="positionFilterToggle"
+                aria-expanded="false"
+              >
+                Positions: All
+              </button>
+              <div
+                class="multi-panel"
+                id="positionFilterPanel"
+                role="listbox"
+                aria-multiselectable="true"
+              >
+                <p class="muted">No positions yet.</p>
+              </div>
+            </div>
+            <p class="filter-hint">Tap to select multiple options.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>1. Upload CSV Schedule</h2>
+          <div class="upload-grid">
+            <label class="upload">
+              <input id="csvInput" type="file" accept=".csv,text/csv" />
+              <span class="upload-label">Choose CSV</span>
+            </label>
+            <button id="runExtract" class="btn">Load CSV</button>
+            <div id="extractStatus" class="status">Waiting for a CSV.</div>
+          </div>
+          <div id="pdfMeta" class="meta">No CSV selected.</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2. Guard List</h2>
+        <div class="list-actions">
+          <button id="messageSelected" class="btn" disabled>Message Selected</button>
+          <button id="clearSelection" class="btn ghost small">Clear Selection</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Guard Name</th>
+                <th>Site Allocated</th>
+                <th>Timings</th>
+                <th>Call</th>
+                <th>Message</th>
+                <th>Select</th>
+              </tr>
+            </thead>
+            <tbody id="shiftTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>
+          Tip: Your CSV should include columns like Date, Guard Name, Phone, Site Allocated,
+          Shift Position, Timings (Response is optional).
+        </p>
+      </footer>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
